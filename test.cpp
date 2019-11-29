@@ -1,9 +1,8 @@
-#include "deck.h"
+#include "blackjack.h"
 #include <time.h>
 
 int main(){
-    Deck deckthing;
-    deckthing.shuffleDeck();
-    deckthing.printDeck();
-    cout << "hi";
+    Blackjack newBlackjackGame(5,false);
+    newBlackjackGame.blackjackDeck.printDeck();
+    newBlackjackGame.printHands();
 }
