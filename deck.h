@@ -2,84 +2,15 @@
 #include <cstdlib>
 #include "card.h"
 #include <time.h>
+#include <vector>
 
 class Deck{
     public:
-        Card cardList[52];
+         vector <Card> cardList;
     Deck(){
-        for (int i = 0; i < 13; i++){
-            cardList[i].getSuite(0);
-            cardList[i].getNumber(i+1);
-            if (i <= 10){
-                cardList[i].value = i;
-            } else if( i > 10){
-                cardList[i].value = 10;
-            }
-        }
-        for (int i = 0; i < 13; i++){
-            cardList[i+13].getSuite(1);
-            cardList[i+13].getNumber(i+1);
-            if (i <= 10){
-                cardList[i+13].value = i;
-            } else if( i > 10){
-                cardList[i+13].value = 10;
-            }
-        }
-        for (int i = 0; i < 13; i++){
-            cardList[i+26].getSuite(2);
-            cardList[i+26].getNumber(i+1);
-            if (i <= 10){
-                cardList[i+26].value = i;
-            } else if( i > 10){
-                cardList[i+26].value = 10;
-            }
-        }
-        for (int i = 0; i < 13; i++){
-            cardList[i+39].getSuite(3);
-            cardList[i+39].getNumber(i+1);
-            if (i <= 10){
-                cardList[i+39].value = i;
-            } else if( i > 10){
-                cardList[i+39].value = 10;
-            }
-        }
-    };
-    void newDeck(){
-        for (int i = 0; i < 13; i++){
-            cardList[i].getSuite(0);
-            cardList[i].getNumber(i+1);
-            if (i <= 10){
-                cardList[i].value = i;
-            } else if( i > 10){
-                cardList[i].value = 10;
-            }
-        }
-        for (int i = 0; i < 13; i++){
-            cardList[i+13].getSuite(1);
-            cardList[i+13].getNumber(i+1);
-            if (i <= 10){
-                cardList[i+13].value = i;
-            } else if( i > 10){
-                cardList[i+13].value = 10;
-            }
-        }
-        for (int i = 0; i < 13; i++){
-            cardList[i+26].getSuite(2);
-            cardList[i+26].getNumber(i+1);
-            if (i <= 10){
-                cardList[i+26].value = i;
-            } else if( i > 10){
-                cardList[i+26].value = 10;
-            }
-        }
-        for (int i = 0; i < 13; i++){
-            cardList[i+39].getSuite(3);
-            cardList[i+39].getNumber(i+1);
-            if (i <= 10){
-                cardList[i+39].value = i;
-            } else if( i > 10){
-                cardList[i+39].value = 10;
-            }
+        for (int i = 0; i < 52; i++)
+        {
+            cardList.push_back(Card(i));
         }
     };
     void printDeck(){
@@ -116,6 +47,5 @@ class Deck{
             cardList[randIndex].suite = tempCard.suite;
             cardList[randIndex].value = tempCard.value;
         }
-        cout << "done shuffling";
     };
 };
