@@ -3,8 +3,8 @@
 using namespace std;
 class Card{
     private:
-    string ranks[13] = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
-    string suites[4] = {"Hearts","Spades","Clubs","Diamonds"};
+        string ranks[13] = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
+        string suites[4] = {"Hearts","Spades","Clubs","Diamonds"};
     public:
         string suite;
         string number;

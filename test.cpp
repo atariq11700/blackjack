@@ -4,5 +4,5 @@
 
 int main(){
     Blackjack newGame(5);
-
+    newGame.beginGame();
 }
