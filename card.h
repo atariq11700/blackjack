@@ -2,23 +2,17 @@
 #include <iostream>
 using namespace std;
 class Card{
-    private:
-        string ranks[13] = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
-        string suites[4] = {"Hearts","Spades","Clubs","Diamonds"};
     public:
         string suite;
         string number;
         int value;
         int cardValue;
-    Card(int x){
+    Card(int x = 0){
+        string ranks[13] = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
+        string suites[4] = {"Hearts","Spades","Clubs","Diamonds"};
         value = x;
         suite = suites[x / 13];
         number = ranks[ x % 13];
-    };
-    Card(){
-        suite = "defaultSuite";
-        number = "defaultNumber";
-        value = 0;
     };
     string getSuite(){
         return suite;

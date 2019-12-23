@@ -1,5 +1,6 @@
 #pragma once
 #include "deck.h"
+#include "windows.h"
 
 class Blackjack{
     public:
@@ -24,12 +25,15 @@ class Blackjack{
         }
     };
     void beginGame(){
+        playerHands.clear();
+        blackjackDeck = Deck();
         bool done = false;
         int dealer = players;
         while (not done)
         {
             vector <int> bets;
-            vector <int> playersBusted;
+            vector <bool> playersBusted;
+            playersBusted.resize(players);
             //set player balances
             for (int i = 0; i < players; i++)
             {
@@ -48,34 +52,37 @@ class Blackjack{
             }
             cout << "The dealers second card is the ";
             playerHands[dealer][1].printCard();
+            //loop through all the players and ask to hit or hold
             for (int i = 0; i < players; i++)
             {
                 bool playerDone = false;
                 while (not playerDone)
                 {
                     cout << "Player " << i+1 << " you have the cards:" << endl;
-                    int tempval = 0;
                     for (int h = 0; h < playerHands[i].size(); h++)
                     {
                         playerHands[i][h].printCard();
-                        tempval += playerHands[i][h].getCardValue();
                     }
-                    cout << tempval << endl;
                     int tempChoice = 0;
                     cout << "1) Hit" << endl;
                     cout << "2) Hold" << endl;
                     cin >> tempChoice;
                     if (tempChoice == 1)
                     {
-                        playerHands[i].push_back(blackjackDeck.deal());
+                        Card tempCard = blackjackDeck.deal();
+                        cout << "Player " << i+1 << " is dealt a ";
+                        tempCard.printCard();
+                        playerHands[i].push_back(tempCard);
                         int tempSum = 0;
                         for (int y = 0; y < playerHands[i].size(); y++)
                         {
                             tempSum += playerHands[i][y].getCardValue();
                         }
+                        //check to see if bust
                         if (tempSum > 21){
+                            Sleep(1000);
                             cout << "Player Busts!!!" << endl;
-                            playersBusted.push_back(i);
+                            playersBusted[i] = true;
                             break;
                         }
                     }else if (tempChoice == 2)
@@ -83,12 +90,84 @@ class Blackjack{
                         cout << "Player " << i+1 << " holds" << endl;
                         playerDone = true;
                     }
+                    Sleep(1500);
                 }
             }
+            Sleep(1000);
+            //dealer turn
             cout << "The dealer has the cards: " << endl;
-            cout << playerHands[dealer][0].number << " of " << playerHands[dealer][0].suite << endl;
-            cout << playerHands[dealer][1].number << " of " << playerHands[dealer][1].suite << endl;            
-            break;
+            playerHands[dealer][0].printCard();
+            playerHands[dealer][1].printCard();
+            //dealer draws
+            bool dealerDone = false;
+            bool dealerBust = false;
+            int dealerValue;
+            while (not dealerDone)
+            {
+                dealerValue = 0;
+                for (int z = 0; z < playerHands[dealer].size(); z++)
+                {
+                    dealerValue += playerHands[dealer][z].getCardValue();
+                }
+                if (dealerValue < 17){
+                    Card tempCard = blackjackDeck.deal();
+                    cout << "Dealer draws a ";
+                    tempCard.printCard();
+                    playerHands[dealer].push_back(tempCard);
+                    Sleep(1500);
+                }else if(dealerValue > 21){
+                    cout << "Dealer busts" << endl;
+                    dealerBust = true;
+                    Sleep(1500);
+                    break;
+                }else if(dealerValue >= 17){
+                    cout << "Dealer holds" << endl;
+                    dealerDone = true;
+                    Sleep(1500);
+                }
+            }
+            //payout
+            if(dealerBust){
+                for (int z = 0; z < players; z++)
+                {
+                    if(not playersBusted[z]){
+                        cout << "Player" << z+1 << " wins " << bets[z] << " dollars " << endl;
+                        playerBalance[z] += bets[z];
+                    }else{
+                        cout << "Player " << z+1 << "busts and wins nothing" <<endl;
+                    }
+                }
+            }else{
+                for (int i = 0; i < players; i++)
+                {
+                    if(playersBusted[i]){
+                        cout << "Player " << i+1 << " busted and loses " << bets[i] << " dollars" << endl;
+                        playerBalance[i] -= bets[i];
+                    }else{
+                        int playerValue;
+                        for (int f = 0; f < playerHands[i].size(); f++)
+                        {
+                            playerValue += playerHands[i][f].getCardValue();
+                        }
+                        if(playerValue > dealerValue){
+                            cout << "Player " << i+1 << " wins " << bets[i] << " dollars " << endl;
+                            playerBalance[i] += bets[i];
+                        }else if(dealerValue == playerValue){
+                            cout << "Player " << i+1 << " ties with the dealer and neither wins nor loses money" << endl;
+                        }else if(dealerValue > playerValue){
+                            cout << "Player " << i+1 << " loses " << bets[i] << " dollars" << endl;
+                            playerBalance[i] -= bets[i];
+                        }
+                    }
+                }
+            }
+            cout << "Play again?" << endl;;
+            string playAgain;
+            cin >> playAgain;
+            if(playAgain == "n"){
+                done = true;
+                cout << "Thanks for playing" << endl;
+            }
         }        
     };
 };

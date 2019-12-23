@@ -3,6 +3,9 @@
 
 
 int main(){
-    Blackjack newGame(3);
-    newGame.beginGame();
+  cout << "Welcome to blackjack!! Please enter the numbers of players who want to play." << endl;
+  int numOfPLayers;
+  cin >> numOfPLayers;
+  Blackjack gameOfBlackjack(numOfPLayers);
+  gameOfBlackjack.beginGame();      
 }
