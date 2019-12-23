@@ -3,6 +3,6 @@
 
 
 int main(){
-    Blackjack newGame(5);
+    Blackjack newGame(3);
     newGame.beginGame();
 }

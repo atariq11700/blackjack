@@ -9,6 +9,7 @@ class Card{
         string suite;
         string number;
         int value;
+        int cardValue;
     Card(int x){
         value = x;
         suite = suites[x / 13];
@@ -30,5 +31,8 @@ class Card{
     };
     int getCardValue(){
         return value % 13 + 1;
+    };
+    void printCard(){
+        cout << number << " of " << suite << endl;
     };
 };

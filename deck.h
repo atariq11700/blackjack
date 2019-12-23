@@ -48,4 +48,10 @@ class Deck{
             cardList[randIndex].value = tempCard.value;
         }
     };
+    Card deal(){
+        Card tempcard;
+        tempcard = cardList[0];
+        cardList.erase(cardList.begin());
+        return tempcard;
+    };
 };
