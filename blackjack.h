@@ -25,12 +25,12 @@ class Blackjack{
         }
     };
     void beginGame(){
-        playerHands.clear();
-        blackjackDeck = Deck();
         bool done = false;
         int dealer = players;
         while (not done)
         {
+            blackjackDeck = Deck();
+            playerHands.clear();
             vector <int> bets;
             vector <bool> playersBusted;
             playersBusted.resize(players);
